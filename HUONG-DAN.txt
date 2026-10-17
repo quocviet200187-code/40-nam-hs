@@ -1,0 +1,73 @@
+BỘ MÃ NGUỒN WEBSITE THIỆP MỜI KỶ NIỆM 40 NĂM
+================================================
+
+CẤU TRÚC
+--------
+index.html       Trang web gồm đúng 2 phần: ảnh thiệp và biểu mẫu
+style.css        Giao diện responsive, tông kem - vàng - đỏ
+Code.gs          Google Apps Script nhận đăng ký và lưu Google Sheets
+images/          Đặt ảnh thiệp mời tại đây
+
+A. CHUẨN BỊ GOOGLE SHEETS
+-------------------------
+1. Tạo một Google Sheets mới.
+2. Đặt tên trang tính (tab phía dưới) là: DangKy
+3. Dòng đầu tiên nên có các tiêu đề theo đúng thứ tự:
+   Thời gian đăng ký | Họ và tên | Lớp | Niên khóa | Số điện thoại
+4. Sao chép ID từ URL:
+   https://docs.google.com/spreadsheets/d/ID_CUA_BAN/edit
+
+B. TRIỂN KHAI GOOGLE APPS SCRIPT
+--------------------------------
+1. Vào https://script.google.com/ và tạo dự án mới.
+2. Dán toàn bộ nội dung Code.gs vào trình soạn thảo.
+3. Thay DAN_ID_GOOGLE_SHEETS_VAO_DAY bằng ID thật.
+4. Chọn hàm kiemTraCauHinh rồi Run; cấp quyền nếu Google yêu cầu.
+5. Chọn Deploy > New deployment > Web app.
+6. Execute as: Me.
+7. Who has access: Anyone (nếu tài khoản/trường cho phép).
+8. Deploy, hoàn tất cấp quyền và sao chép URL kết thúc bằng /exec.
+
+C. KẾT NỐI WEBSITE VỚI APPS SCRIPT
+----------------------------------
+Trong index.html, thay DAN_URL_WEB_APP_EXEC_CUA_BAN_VAO_DAY trong thuộc tính action của form bằng URL Web app thật, kết thúc bằng /exec. Không giữ nguyên chuỗi mẫu và không dùng URL /dev. Không dùng URL /dev cho website công khai.
+
+Không dùng URL /dev cho website công khai. Sau khi sửa Code.gs, mở
+Deploy > Manage deployments > Edit, chọn phiên bản mới rồi Deploy lại.
+
+D. THAY ẢNH THIỆP
+-----------------
+Đặt ảnh thiệp đã hoàn thiện vào:
+  images/thiep-moi.png
+Ảnh sẽ giữ nguyên tỷ lệ, không bị kéo méo. Nếu ảnh của bạn là JPG,
+có thể đổi tên thành thiep-moi.png sau khi chuyển định dạng thật sự,
+hoặc sửa src trong index.html thành đúng tên file, ví dụ:
+  src="images/thiep-moi.jpg"
+
+E. ĐƯA WEBSITE LÊN VERCEL
+-------------------------
+1. Tạo GitHub repository.
+2. Tải index.html, style.css và thư mục images lên repository.
+3. Vào https://vercel.com/new và import repository.
+4. Framework Preset: Other.
+5. Build Command để trống; Output Directory là . nếu được yêu cầu.
+6. Deploy.
+
+F. KIỂM TRA TRƯỚC KHI GỬI CHO KHÁCH
+-----------------------------------
+- Mở website trên máy tính và điện thoại.
+- Điền một đăng ký thử.
+- Xác nhận thông báo thành công.
+- Kiểm tra dòng mới trong Google Sheets.
+- Nếu không lưu được: kiểm tra ID Google Sheets, tên tab DangKy, URL /exec, quyền truy cập ứng dụng web; sau khi sửa Code.gs phải Deploy phiên bản mới. Kiểm tra Executions trong Apps Script để xem lỗi cụ thể.
+- Kiểm tra thư mục ảnh và tên file chính xác.
+
+LƯU Ý BẢO MẬT
+-------------
+- Không chia sẻ quyền chỉnh sửa Google Sheets với khách tham dự.
+- Dữ liệu tên, số điện thoại là dữ liệu cá nhân; chỉ thu thập thông tin
+  cần thiết, giới hạn người được xem bảng tính và bảo quản phù hợp.
+- Endpoint công khai có thể bị gửi spam. Honeypot chỉ là biện pháp cơ bản,
+  không phải chống spam hoàn chỉnh.
+- Đoạn mã không gửi dữ liệu cho bên thứ ba ngoài Google Sheets/Apps Script.
+- Không đặt mật khẩu hoặc thông tin bí mật trong HTML công khai.
